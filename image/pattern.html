@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<canvas id="canvas" width="1420" height="752"></canvas>
+<script>
+    var c = document.getElementById("canvas");
+    var context = c.getContext('2d');
+    var radiusX = 100;
+    var radiusY = 190;
+    var x_axis = [];
+    var y_axis = [];
+    for (var i = 0; i < 100; i++) {
+        context.beginPath();
+        context.arc( radiusX, radiusY, 0, 0, 2 * Math.PI);
+        context.stroke();
+        context.fillStyle = 'black';
+
+        radiusX = radiusX + 20;
+        radiusY = radiusY + 20;
+
+        var x = 0,y = 0,x1 = 0,y1 = 0;
+        for (var j = 0; j < 31; j++) {
+            var angle = (( Math.PI) /10 * j);
+            console.log("angle is:"+angle);
+
+            var x0 = (window.innerWidth)/2 + radiusX * Math.cos(angle);
+            var y0 =(window.innerHeight)/2 + radiusY * Math.sin(angle);
+            console.log(x0,y0);
+
+            context.beginPath();
+            context.moveTo(x0, y0);
+            context.lineTo(x_axis[j], y_axis[j]);
+
+
+            if (x != 0) {
+                context.lineTo(x, y);
+                context.closePath();
+            }
+            context.stroke();
+            if (i % 2 == 0) {
+                context.fillStyle="black";
+                context.fill();
+            }else{
+                context.fillStyle="silver";
+                context.fill();
+            }
+            x = x0;
+            y = y0;
+            console.log(x,y)
+            console.log("axis are");
+            x_axis[j] = x0;
+            y_axis[j] = y0;
+            console.log(x_axis,y_axis);
+        }
+    }
+</script>
+</body>
+</html>

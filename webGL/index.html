@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ocean View</title>
+    <style>
+        body{
+            background-color: #005d94;
+        }
+        #pond {
+            width: 1425px;
+            height: 752px;
+            /*background: linear-gradient(to bottom, #005d94, whitesmoke);*/
+            background-image: url("giphy.gif");
+            background-repeat: no-repeat;
+            background-size: 1424px 752px;
+            /*margin-top: 5em;*/
+            /*margin-left: 12em;*/
+        }
+        /*img {*/
+            /*position: absolute;*/
+            /*height: 90px;*/
+            /*width: 90px;*/
+            /*margin-top: 8em;*/
+            /*margin-left: 14em;*/
+
+        /*}*/
+        div {
+            /*position: absolute;*/
+            width: 500px;
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+<div id="pond">
+</div>
+<script src="three.min.js"></script>
+<script>
+//    var fish = document.getElementById("pond");
+//    function generateFishes() {
+//        for (i = 0; i < 15; ++ i) {
+//            img_src = document.createElement("img");
+//            img_src.src = "fish1.png";
+//            img_src.style.top = Math.floor(Math.random() * 300) + "px";
+//            img_src.style.left = Math.floor(Math.random() * 900) + "px";
+//            fish.appendChild(img_src);
+//
+//        }
+//
+//        fish_images = fish.cloneNode(true);
+//        //fish_images.removeChild(fish_images.lastChild);
+//    }
+//    generateFishes();
+
+    var div = document.getElementById("pond");
+    var cam, scene, renderer;
+
+
+    cam = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1, 100 );
+    console.log (window.innerWidth,window.innerHeight);
+    cam.position.z= 20;
+    scene = new THREE.Scene();
+
+    var pattern1 = new THREE.PlaneGeometry(10,10,10 );
+    var f = THREE.ImageUtils.loadTexture("fish.png");
+    var map1 = new THREE.MeshBasicMaterial( { map: f } );
+    fish = new THREE.Mesh(pattern1, map1);
+    fish.position.x=30;
+    fish.position.y=-10;
+    scene.add(fish);
+
+
+    var pattern2 = new THREE.PlaneBufferGeometry( 10,10,10 );
+    var f1 = THREE.ImageUtils.loadTexture("fish1.png");
+    var map2 = new THREE.MeshBasicMaterial( { map: f1} );
+    fish1 = new THREE.Mesh(pattern2, map2);
+    fish1.position.x=-30;
+    fish1.position.y=-10;
+    scene.add(fish1);
+
+    var pattern3 = new THREE.PlaneBufferGeometry( 40,30 );
+    var ffg = THREE.ImageUtils.loadTexture("1.png");
+    var map3 = new THREE.MeshBasicMaterial( { map: ffg} );
+    fishf = new THREE.Mesh(pattern3, map3);
+    scene.add(fishf);
+
+    renderer = new THREE.WebGLRenderer( { alpha: true } );
+    renderer.setSize( 1425, 750 );
+    div.appendChild( renderer.domElement );
+
+    animate();
+    function animate() {
+        requestAnimationFrame( animate );
+
+        fish1.translateX(0.02)
+        fish1.translateY(0.02)
+
+        fish.translateY(0.04);
+        fish.translateX(0.04);
+
+//       fish.rotateX(0.04);
+//       fish.rotateY(0.04);
+
+
+        fishf.translateX(0.02);
+        fishf.translateY(0.02);
+
+//        fishf.position.x= Math.cos(0.02);
+//        fishf.position.x= Math.sin(0.02);
+
+//        fishf.rotation.y = THREE.Math.degToRad(-10);
+
+        renderer.render( scene, cam );
+    }
+</script>
+
+<!--<canvas width="1440" height="752" ></canvas>-->
+</body>
+</html>
+
+
